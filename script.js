@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (newIndex >= testimonials.length) newIndex = 0;
         showTestimonial(newIndex);
     }, 5000);
-  /*  
+  
     // Calendar Initialization
     const calendar = flatpickr("#calendar", {
         inline: true,
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize with current date
     updateEventsDisplay(new Date());
-    */
+    
     // Bookstore Functionality
     const books = [
         {
