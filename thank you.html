@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Realm Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+            --success-color: #28a745;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--light-color);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Thank You Section */
+        .thank-you {
+            text-align: center;
+            padding: 100px 0;
+        }
+
+        .thank-you-icon {
+            font-size: 5rem;
+            color: var(--success-color);
+            margin-bottom: 30px;
+            animation: bounce 1s ease infinite alternate;
+        }
+
+        .thank-you h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .thank-you p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .order-details {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 40px auto;
+            text-align: left;
+            max-width: 600px;
+        }
+
+        .order-details h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .order-summary {
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-total {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--primary-color);
+            text-align: right;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        /* Animations */
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .thank-you {
+                padding: 60px 0;
+            }
+            
+            .thank-you h1 {
+                font-size: 2rem;
+            }
+            
+            .thank-you p {
+                font-size: 1rem;
+            }
+            
+            .order-details {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="thank-you">
+        <div class="container">
+            <div class="thank-you-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1>Thank You for Your Order!</h1>
+            <p>Your purchase has been received and we're processing your order. You'll receive a confirmation email shortly.</p>
+            
+            <div class="order-details">
+                <h2>Order Summary</h2>
+                <div class="order-summary" id="order-summary">
+                    <!-- Order details will be populated by JavaScript -->
+                </div>
+                <div class="order-total">
+                    Total: $<span id="order-total">0.00</span>
+                </div>
+            </div>
+            
+            <p>If you have any questions about your order, please contact us at <strong>info@realmcommunity.org</strong></p>
+            <a href="index.html" class="btn">Back to Home</a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Realm Community. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Retrieve order details from URL parameters
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderDetails = urlParams.get('order_details');
+            const totalAmount = urlParams.get('total_amount');
+            const customerName = urlParams.get('name');
+            const customerEmail = urlParams.get('email');
+            
+            // Display order details if available
+            if (orderDetails && totalAmount) {
+                const orderSummary = document.getElementById('order-summary');
+                const orderTotal = document.getElementById('order-total');
+                
+                // Split order details by line breaks
+                const items = orderDetails.split('\n').filter(item => item.trim() !== '');
+                
+                items.forEach(item => {
+                    if (item.trim().startsWith('-')) {
+                        // This is a book item
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'order-item';
+                        itemDiv.innerHTML = item.replace('- ', '').replace(/ {2,}/g, '<br>');
+                        orderSummary.appendChild(itemDiv);
+                    }
+                });
+                
+                orderTotal.textContent = totalAmount;
+                
+                // Add customer info if available
+                if (customerName || customerEmail) {
+                    const customerDiv = document.createElement('div');
+                    customerDiv.className = 'order-item';
+                    customerDiv.innerHTML = `
+                        <strong>Customer:</strong><br>
+                        ${customerName ? customerName : ''}<br>
+                        ${customerEmail ? customerEmail : ''}
+                    `;
+                    orderSummary.insertBefore(customerDiv, orderSummary.firstChild);
+                }
+            } else {
+                // No parameters found - show generic thank you
+                document.getElementById('order-summary').innerHTML = `
+                    <p>Your order has been received successfully.</p>
+                    <p>We'll send the details to your email shortly.</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
