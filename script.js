@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     { id: 2, link: "https://selar.com/0k61kc7444", title: "Miracle Leaf", author: "Success Nwagba T.", image: "miracle leaf.jpg" },
     { id: 3, link: "https://selar.com/366941", title: "Parenting With Intention", author: "Success Nwagba T.", image: "parenting with intention.jpeg" },
     { id: 4, link: "https://selar.com/cb10701f46", title: "Why The Cross?", author: "Success Nwagba T.", image: "Why The Cross.jpeg" },
-    { id: 5, link: "https://selar.com/4f187h7777", title: "God's Systems And Miracles", author: "Success Nwagba T.", image: "Gods system and miracles.jpeg" }
+    { id: 5, link: "https://selar.com/4f187h7777", title: "God's Systems And Miracles", author: "Success Nwagba T.", image: "Gods system and miracles.png" }
   ];
 
   const grid = document.getElementById('booksGrid');
